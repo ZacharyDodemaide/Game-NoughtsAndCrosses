@@ -1,0 +1,7 @@
+Z:\Repo\ttt_framework\bin\Debug\ttt_framework.exe.config
+Z:\Repo\ttt_framework\bin\Debug\ttt_framework.exe
+Z:\Repo\ttt_framework\bin\Debug\ttt_framework.pdb
+Z:\Repo\ttt_framework\obj\Debug\ttt_framework.csproj.AssemblyReference.cache
+Z:\Repo\ttt_framework\obj\Debug\ttt_framework.csproj.CoreCompileInputs.cache
+Z:\Repo\ttt_framework\obj\Debug\ttt_framework.exe
+Z:\Repo\ttt_framework\obj\Debug\ttt_framework.pdb
