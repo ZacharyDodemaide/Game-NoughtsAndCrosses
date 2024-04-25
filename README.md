@@ -1,12 +1,16 @@
-How to play
-1. Open Terminal.
-2. Navigate to the project folder’s root directory.
-    - Run the following commands: dotnet build > dotnet run (requires .Net 6 to build)
-3. The game starts as Human vs. Computer (the only mode implemented).
-    - The 3x3 board has both axes starting at 0 and ending at 2:
-4. In the terminal, players make moves by entering Row number, Column number, and 
-Token x or o (token is case insensitive).
-5. After a successful move, the computer opponent responds, and repeat from 4, until a 
-player wins. 
-6. If an invalid move is made, the player will be prompted of an invalid move followed 
-by the instructions prompt.
+# Read Me
+This game is a classic Tic Tac Toe played between a human and the computer.
+
+## Prerequisites
+- .NET 6 (for building the project)
+
+## Running the Game
+1. Open your terminal.
+2. Navigate to the project's root directory using the cd command.
+3. Run the following command to build and start the game:
+    - dotnet build
+    - dotnet run 
+## Gameplay
+The game board is a 3x3 grid where both rows and columns are numbered from 0 to 2. You make moves by entering a row number (0, 1, or 2), a column number (0, 1, or 2), and your desired token ("X" or "o"). Tokens are not case-sensitive. After a valid move, the computer will make its response. The game continues until a player gets three tokens in a row (horizontally, vertically, or diagonally) or all squares are filled (resulting in a tie).
+
+If you enter an invalid move, the game will prompt you with an error message and ask you to try again.
