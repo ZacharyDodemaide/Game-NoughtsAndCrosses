@@ -1,5 +1,5 @@
 # Read Me
-This game is a classic Tic Tac Toe played between a human and the computer.
+Noughts and crosses played between a human and the computer in the terminal.
 
 ## Prerequisites
 - .NET 6 (for building the project)
