@@ -1,40 +1,50 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+public class GameManager
+{
+    private readonly Rules rules;
+    private readonly Player[] players;
+    private int currentPlayerIndex = 0;
 
+    public GameManager(Rules rules, Player player1, Player player2)
+    {
+        this.rules = rules;
+        players = new[] { player1, player2 };
+    }
 
-    public class GameManager
+    public void Play(WildState wildState)
     {
-    public void play(WildState wildState)
+        while (true)
+        {
+            var currentPlayer = players[currentPlayerIndex];
+            GetValidMove(currentPlayer, wildState);
+
+            wildState.Board.UpdateBoard(move.row, move.col, move.token);
+            wildState.AddMove(currentPlayerIndex, move.row, move.col, move.token);
+            wildState.Board.ShowBoard();
+
+            if (rules.CheckWin((WildBoard)wildState.Board, move.token))
+            {
+                Console.WriteLine($"Player {currentPlayer} wins!");
+                break;
+            }
+
+            SwitchPlayer();
+        }
+    }
+
+    private (int row, int col, string token) move;
+
+    private void GetValidMove(Player player, WildState wildState)
     {
-        string input;
         do
         {
-            Console.WriteLine("Enter (row, column, token) or Q to quit:");
-            input = Console.ReadLine();
-            Console.WriteLine();
-
-            string token;
-            string[] values = input.Split(',');
-            int.TryParse(values[0], out int row);
-            int.TryParse(values[1], out int col);
-            token = values[2];
-
-            if (token == "X" || token == "O")
+            move = player.MakeMove((WildBoard)wildState.Board);
+            if (!rules.CheckMove((WildBoard)wildState.Board, move.row, move.col, move.token))
             {
-                wildState.Board.UpdateBoard(row, col, token);
-                wildState.Board.ShowBoard();
-
+                Console.WriteLine("Invalid move, try again.");
             }
-            else if (input != "Q")
-            {
-                Console.WriteLine("Invalid input. Please enter X, O, or Q.");
-            }
-        } while (input != "Q");
-    }
-    
+        } while (!rules.CheckMove((WildBoard)wildState.Board, move.row, move.col, move.token));
     }
 
+    private void SwitchPlayer() => currentPlayerIndex = 1 - currentPlayerIndex;
+}

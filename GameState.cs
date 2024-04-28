@@ -1,20 +1,49 @@
-﻿using System;
+﻿
+public interface GameState
+{
+    Board Board { get; set; }
+    Stack<string> MoveHistory { get; set; }
+    Stack<string> RedoMoveHistory { get; set; }
 
+}
 
-    public interface IGameState
+public class WildState : GameState
+{
+    public Board Board { get; set; }
+    public Stack<string> MoveHistory { get; set; }
+    public Stack<string> RedoMoveHistory { get; set; }
+
+    public WildState(WildBoard wb)
     {
-        IBoard Board { get; set; }
-        int NextPlayer { get; set; }
+        Board = wb;
+        MoveHistory = new Stack<string>();
+        RedoMoveHistory = new Stack<string>();
     }
-
-    public class WildState : IGameState
+    public void AddMove(int player, int row, int col, string token)
     {
-        public IBoard Board { get; set; }
-        public int NextPlayer { get; set; }
-
-        public WildState(WildBoard wb)
+        MoveHistory.Push($"Player: {player}, Row: {row}, Col: {col}, Token: {token}");
+        RedoMoveHistory.Clear();
+    }
+    public string UndoMove()
+    {
+        if (MoveHistory.Count > 0)
         {
-            Board = wb;
-            NextPlayer = 1; // Let's say 1 represents the first player
+            string lastMove = MoveHistory.Pop();
+            RedoMoveHistory.Push(lastMove);
+            return lastMove;
         }
+        return null;
     }
+
+    public string RedoMove()
+    {
+        if (RedoMoveHistory.Count > 0)
+        {
+            string lastUndoneMove = RedoMoveHistory.Pop();
+            MoveHistory.Push(lastUndoneMove);
+            return lastUndoneMove;
+        }
+        return null;
+    }
+}
+
